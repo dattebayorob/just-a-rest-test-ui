@@ -1,35 +1,15 @@
 import React,{Component} from 'react'
-
+import {withRouter} from 'react-router-dom'
 export const EntityContext = React.createContext()
-export const EntityContextConsumer = EntityContext.Consumer
+export const EntityProvider = EntityContext.Provider
+export const EntityConsumer = EntityContext.Consumer
 
-export default class EntityCTX extends Component{
-    view = {
-        list:{
-            title: "Entity",
-            icon: "",
-            small: "Search Entities"
-        },
-        edit:{
-            title: "Entity",
-            icon: "",
-            small: "Edite Entity"
-        },
-        insert:{
-            title: "Entity",
-            icon: "",
-            small: "Insert Entity"
-        }
-    }
+class EntityCTX extends Component{
+    
     state = {
-        view: this.view.list,
         entities: [],
         entity: {},
         filters: {}
-    }
-
-    setView = (nextView) => {
-        this.setState({view: this.view[nextView]})
     }
 
     setEntities = (entities) => {
@@ -44,16 +24,20 @@ export default class EntityCTX extends Component{
         this.setState({entity})
     }
 
+    redirect = (uri) => {
+        this.props.history.push(uri)
+    }
+
     render(){
-        console.log(this)
         let ctx = {
             ...this.state,
-            setEntity: this.setEntity
+            ...this
         }
         return (
-            <EntityContext.Provider value={ctx} >
+            <EntityProvider value={ctx} >
                 {this.props.children}
-            </EntityContext.Provider>
+            </EntityProvider>
         )
     }
 }
+export default withRouter(EntityCTX)
