@@ -29,23 +29,39 @@ export class EntityList extends Component{
     }
 
     componentDidMount(){
-        this.get()
+        this.loadContext()
     }
 
-    get = () => {
+    loadContext = () => {
+        let { entities, filters, page, reload } = this.context
+        if(filters.page){
+            this.setState({entities, filters, page})
+            if(!reload){
+                return
+            }
+            this.context.setReload()
+        }
+        this.get()
+
+    }
+
+    get = async () => {
         let filters = this.filter()
-        this.service.get(filters).then(response => {
+        await this.service.get(filters).then(response => {
             let {content, ...pagination} = response.data
-            this.context.setEntities(content)
-            this.setState({entities: content, page: this.convertPagination(pagination)})
+            let page = this.convertPagination(pagination)
+            this.setState({entities: content, page}, () => {
+                this.context.setEntities(content)
+                this.context.setPage(page)
+                this.context.setFilters(this.filter())
+            })
         }).catch(exception => {
             console.log(exception)
         })
     }
 
     filter = () => {
-        let { page } = this.state
-        let { filters } = this.state
+        let { page, filters } = this.state
         filters['page'] = page.number
         filters['size'] = page.size
         this.setState({filters})
@@ -73,8 +89,8 @@ export class EntityList extends Component{
         this.context.redirect('/entities/add')
     }
 
-    delete = (id) => {
-        this.service.delete(id).then(response => {
+    delete = async (id) => {
+        await this.service.delete(id).then(response => {
             alert('Deleted')
             this.get()
         }).catch(exception => {

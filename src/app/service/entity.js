@@ -5,9 +5,14 @@ let api = axios.create({baseURL: BASE_URL})
 
 export class Api {
     get = async (params) => {
+        console.log(params)
         return await api.get('', {
             params
         })
+    }
+
+    getById = async (id) => {
+        return await api.get(`/${id}`)
     }
 
     delete = async (id) => {
@@ -16,6 +21,12 @@ export class Api {
 
     save = async (entity) => {
         return await api.post('', {
+            ...entity
+        })
+    }
+
+    update = async (entity) => {
+        return await api.put(`/${entity.id}`, {
             ...entity
         })
     }

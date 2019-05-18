@@ -9,7 +9,9 @@ class EntityCTX extends Component{
     state = {
         entities: [],
         entity: {},
-        filters: {}
+        filters: {},
+        page: {},
+        reload: false
     }
 
     setEntities = (entities) => {
@@ -20,8 +22,17 @@ class EntityCTX extends Component{
         this.setState({filters})
     }
 
+    setPage = (page) => {
+        this.setState({page})
+    }
+
     setEntity = (entity) => {
         this.setState({entity})
+    }
+
+    setReload = () => {
+        let {reload}  = this.state
+        this.setState({reload: !reload})
     }
 
     redirect = (uri) => {
