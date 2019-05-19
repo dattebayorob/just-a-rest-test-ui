@@ -9,6 +9,7 @@ export const handleErrors = (error) => {
         errorRequest(error.request)
         return
     }
+    console.log(error)
     showError("Something went wrong!")
 }
 
