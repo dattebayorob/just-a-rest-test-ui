@@ -1,13 +1,13 @@
-import React,{Component} from 'react'
+import { Button, FormControl, TextField } from '@material-ui/core';
+import React, { Component } from 'react';
 import { EntityContext } from '../../app/context/EntityContext';
 import { Api } from '../../app/service/entity';
-import Error from '../common/error'
-import { TextField, Button, FormControl } from '@material-ui/core';
+import { handleErrors } from '../../app/utils/errors'
+import { showSuccess } from '../../app/utils/toastify';
 
 export class EntityUpdate extends Component{
     state = {
         entity: {},
-        errors: []
     }
     constructor(){
         super()
@@ -21,7 +21,8 @@ export class EntityUpdate extends Component{
         await this.service.getById(id).then(response => {
             this.setState({entity: response.data.data})
         }).catch(exception => {
-            console.log(exception)
+            handleErrors(exception)
+            this.list()
         })
     }
 
@@ -30,11 +31,9 @@ export class EntityUpdate extends Component{
         let {entity} = this.state
         
         await this.service.update(entity).then(response => {
-            alert('Saved')
-            this.list()
-        }).catch(exception => {
-            this.setState({errors: exception.response.data.errors})
-        })
+                showSuccess("Entity updated succefully!")
+                this.list()
+        }).catch(exception => handleErrors(exception))
     }
 
     list = () => {
@@ -50,7 +49,7 @@ export class EntityUpdate extends Component{
     }
 
     render(){
-        let {entity,errors} = this.state
+        let {entity} = this.state
         return (
             <form style={{display:'flex', justifyContent: 'center', flexDirection: 'column'}} 
                 onSubmit={(event) => this.save(event)}>
@@ -64,7 +63,6 @@ export class EntityUpdate extends Component{
                     <Button color="primary" type="submit">Save</Button>
                     <Button color="secondary" onClick={()=> this.context.redirect('/entities')}>Cancel</Button>
                 </FormControl>
-                <Error errors={errors}/>
             </form>
             
         )

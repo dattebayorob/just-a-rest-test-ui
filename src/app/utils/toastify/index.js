@@ -26,7 +26,7 @@ export const showError = (message) => {
 export const showSuccess = (message) => {
   Toastify({
     ...defaultOptions,
-    text: `Error<br />${message}`,
+    text: `Success<br />${message}`,
     className: "toastify toastify-success",
   }).showToast();
 }

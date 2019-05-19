@@ -30,20 +30,18 @@ const errorWithResponse = (response) => {
 
 const badRequest = (response) => {
     let{errors} = response.data
-    if(errors){
-        errors.map(error => {
-            showError(error)
-        })
-    }
+    mapErrors("Bad Request", errors)
 }
 
 const notFound = (response) => {
     let { errors } = response.data
+    mapErrors("Resource Not Found", errors)
+}
+
+function mapErrors(defaultMessage, errors){
     if(!errors){
-        showError('Resource not found');
+        showError(defaultMessage)
         return
     }
-    errors.map(error => {
-        showError(error)
-    })
+    errors.map(error => showError(error))
 }

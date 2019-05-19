@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import IconEdit from '@material-ui/icons/Edit'
 import IconDelete from '@material-ui/icons/Delete'
 import { TableFooter, TablePagination } from '@material-ui/core';
+import { handleErrors } from '../../app/utils/errors'
+import {showSuccess} from '../../app/utils/toastify'
 
 export class EntityList extends Component{
     state ={
@@ -55,9 +57,7 @@ export class EntityList extends Component{
                 this.context.setPage(page)
                 this.context.setFilters(this.filter())
             })
-        }).catch(exception => {
-            console.log(exception)
-        })
+        }).catch(exception => handleErrors(exception))
     }
 
     filter = () => {
@@ -91,11 +91,9 @@ export class EntityList extends Component{
 
     delete = async (id) => {
         await this.service.delete(id).then(response => {
-            alert('Deleted')
+            showSuccess('Deleted')
             this.get()
-        }).catch(exception => {
-            console.log(exception)
-        })
+        }).catch(exception => handleErrors(exception))
     }
 
     onChangePage = (event, pageNumber) => {
