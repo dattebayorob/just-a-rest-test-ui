@@ -1,9 +1,9 @@
-import { Button, FormControl, TextField } from '@material-ui/core';
 import React, { Component } from 'react';
 import { EntityContext } from '../../app/context/EntityContext';
 import { Api } from '../../app/service/entity';
 import { handleErrors } from '../../app/utils/errors'
 import { showSuccess } from '../../app/utils/toastify';
+import EntityForm from '../common/form/Entity'
 
 export class EntityUpdate extends Component{
     state = {
@@ -58,20 +58,11 @@ export class EntityUpdate extends Component{
     render(){
         let {entity} = this.state
         return (
-            <form style={{display:'flex', justifyContent: 'center', flexDirection: 'column'}} 
-                onSubmit={(event) => this.save(event)}>
-                <FormControl>
-                    <TextField id="name" label="Name" value={entity.name || ''} 
-                        onChange={(event) => this.onChange(event)} margin="normal" required />
-                    <TextField id="cpf" label="Cpf" value={entity.cpf || ''}
-                        onChange={(event)=>this.onChange(event)} margin="normal" required />
-                    <TextField id="rg" label="Date" value={entity.rg || ''}
-                        onChange={(event)=>this.onChange(event)} margin="normal" required />
-                    <Button color="primary" type="submit">Save</Button>
-                    <Button color="secondary" onClick={()=> this.context.redirect('/entities')}>Cancel</Button>
-                </FormControl>
-            </form>
-            
+            <EntityForm data={entity} 
+                onSubmit={this.save}
+                onChange={this.onChange}
+                onCancel={this.list}
+                 />
         )
     }
 }
