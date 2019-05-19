@@ -22,11 +22,11 @@ export class EntityUpdate extends Component{
             this.context.setShowLoading(true)
             let response = await this.service.getById(id)
             this.setState({entity: response.data.data})
-            this.context.setShowLoading(false)
         }catch(exception){
             handleErrors(exception)
             this.list()  
         }
+        this.context.setShowLoading(false)
     }
 
     save = async (event) => {

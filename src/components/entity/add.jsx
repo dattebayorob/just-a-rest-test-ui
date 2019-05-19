@@ -25,11 +25,11 @@ export class EntityAdd extends Component{
             this.context.setShowLoading(true)
             const response = await this.service.save(entity)
             showSuccess(`Entity saved succefully`)
-            this.context.setShowLoading(false)
             this.context.redirect(`/entities/${response.data.data.id}`)
         }catch(exception){
             handleErrors(exception)
         }
+        this.context.setShowLoading(false)
     }
 
     onCancel = () => {

@@ -58,11 +58,11 @@ export class EntityList extends Component{
                 this.context.setEntities(content)
                 this.context.setPage(page)
                 this.context.setFilters(this.filter())
-                this.context.setShowLoading(false)
             })
         }catch(exception){
             handleErrors(exception)
         }
+        this.context.setShowLoading(false)
     }
 
     filter = () => {

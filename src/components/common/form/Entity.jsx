@@ -11,7 +11,7 @@ export default props => {
                 onChange={(event) => onChange(event)} margin="normal" required />
             <TextField id="cpf" label="Cpf" value={data.cpf || ''}
                 onChange={(event)=> onChange(event)} margin="normal" required />
-            <TextField id="rg" label="Date" value={data.rg || ''}
+            <TextField id="rg" label="Rg" value={data.rg || ''}
                 onChange={(event)=> onChange(event)} margin="normal" required />
             <Button color="primary" type="submit">Save</Button>
             <Button color="secondary" onClick={()=> onCancel()}>Cancel</Button>
