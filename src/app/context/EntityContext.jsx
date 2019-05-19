@@ -11,6 +11,7 @@ class EntityCTX extends Component{
         entity: {},
         filters: {},
         page: {},
+        showLoading: false,
         reload: false
     }
 
@@ -33,6 +34,10 @@ class EntityCTX extends Component{
     setReload = () => {
         let {reload}  = this.state
         this.setState({reload: !reload})
+    }
+
+    setShowLoading = (show) => {
+        this.setState({showLoading: show})
     }
 
     redirect = (uri) => {

@@ -4,6 +4,7 @@ import EntityList from './list';
 import EntityAdd from './add';
 import EntityUpdate from './update';
 import RenderIf from '../common/renderif'
+import Loading from '../common/loading'
 
 export class Entity extends Component {
     
@@ -12,8 +13,10 @@ export class Entity extends Component {
     
     render(){
         let {view, id} = this.props
+        let {showLoading} = this.context
         return (
             <React.Fragment>
+                <Loading show={showLoading}/>
                 <RenderIf test={view==='list'}>
                     <EntityList />
                 </RenderIf>

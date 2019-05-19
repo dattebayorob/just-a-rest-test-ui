@@ -18,22 +18,29 @@ export class EntityUpdate extends Component{
     }
 
     getById = async (id) => {
-        await this.service.getById(id).then(response => {
+        try{
+            this.context.setShowLoading(true)
+            let response = await this.service.getById(id)
             this.setState({entity: response.data.data})
-        }).catch(exception => {
+            this.context.setShowLoading(false)
+        }catch(exception){
             handleErrors(exception)
-            this.list()
-        })
+            this.list()  
+        }
     }
 
     save = async (event) => {
         event.preventDefault()
         let {entity} = this.state
-        
-        await this.service.update(entity).then(response => {
-                showSuccess("Entity updated succefully!")
-                this.list()
-        }).catch(exception => handleErrors(exception))
+        try{
+            this.context.setShowLoading(true)
+            await this.service.update(entity)
+            showSuccess(`Entity updated succefully`)
+            this.context.setShowLoading(false)
+            this.list()
+        }catch(exception){
+            handleErrors(exception)
+        }
     }
 
     list = () => {

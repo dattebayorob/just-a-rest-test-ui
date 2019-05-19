@@ -49,15 +49,20 @@ export class EntityList extends Component{
 
     get = async () => {
         let filters = this.filter()
-        await this.service.get(filters).then(response => {
+        try{
+            this.context.setShowLoading(true)
+            const response = await this.service.get(filters)
             let {content, ...pagination} = response.data
             let page = this.convertPagination(pagination)
             this.setState({entities: content, page}, () => {
                 this.context.setEntities(content)
                 this.context.setPage(page)
                 this.context.setFilters(this.filter())
+                this.context.setShowLoading(false)
             })
-        }).catch(exception => handleErrors(exception))
+        }catch(exception){
+            handleErrors(exception)
+        }
     }
 
     filter = () => {
