@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 
 export const AppContext = React.createContext()
-// export const AppContextConsumer = AppContext.Provider
 
 export default class AppCTX extends Component{
 

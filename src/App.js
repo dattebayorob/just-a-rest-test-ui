@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import AppContext from './app/context/AppContext';
+import { AppContext } from './app/context/AppContext';
 import EntityView from './view/entity';
 import Index from './view/index'
 import AppCTX from './app/context/AppContext';
