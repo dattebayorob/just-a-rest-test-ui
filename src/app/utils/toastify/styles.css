@@ -1,0 +1,16 @@
+.toastify {
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+    color: white;
+    width: 30%;
+}
+.toastify-warning{
+    background: linear-gradient(to right, #f12711, #f5af19);
+}
+.toastify-error{
+    background: linear-gradient(to right, #f00000, #dc281e);
+}
+.toastify-success{
+    background: linear-gradient(to right, #000000, #0f9b0f);
+}
